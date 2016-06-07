@@ -1,5 +1,5 @@
 """ Package loader
-execute pathogen#infect('$VIMRUNTIME/bundle/{}')
+execute pathogen#infect()
  
 
 """ File encoding set to UTF-8
@@ -10,10 +10,10 @@ set encoding=utf-8
 syntax enable               " enable syntax processing
 set background=light        " make background light
 colorscheme solarized       " set colour scheme
-let g:solarized_contrast="high"    "default value is normal
+let g:solarized_contrast="high"      "default value is normal 
 let g:solarized_visibility="high"    "default value is normal
 "colorscheme desert
-set guifont=Consolas:h10:cANSI
+"set guifont=Consolas:h10:cANSI
 set guioptions-=T           " switch off the toolbar icons
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown " add markdown syntax highlighting to .md files
  
@@ -41,7 +41,7 @@ set showcmd             " show command in bottom bar
 set hidden              " allows to switch buffers without saving
 set cursorline          " highlight current line
 set wildmenu            " visual autocomplete for command menu set wildmode=longest:full,full "makes the completion menu show up on first tab with the longest completion first, the second tab will complete with that longest term
-set wildcharm=<C-y>     " this sets the wildcharm as Ctrl Z
+set wildcharm=<C-y>     " this sets the wildcharm as Ctrl y
 set lazyredraw          " redraw only when we need to.
 filetype indent on      " load filetype-specific indent files
 set showmatch           " highlight matching [{()}]
@@ -52,10 +52,6 @@ set scrolloff=3         " Minimum lines to keep above and below cursor
 
 " make jj act as Esc
 inoremap jj <Esc>
-
-" insert date by pressing leader and d
-nnoremap <leader>d "=strftime("%y-%m-%d")<CR>P
-inoremap <leader>d <C-R>=strftime("%y-%m-%d")<CR>
 
 
 """ Statusline
@@ -109,20 +105,14 @@ nnoremap <c-l> <c-w>l
  
 """ Shortcuts
  
-" swap brackets around
-inoremap [ (
-inoremap ( [
-inoremap ] )
-inoremap ) ]
- 
 " make capital w save as well
 nnoremap :W :w
  
  
 """ Backups
  
-set backupdir=$VIMRUNTIME/tmp/backup//
-set directory=$VIMRUNTIME/tmp/swp//
+set backupdir=~/tmp/backup//
+set directory=~/tmp/swp//
  
  
 """ Spelling
@@ -137,7 +127,3 @@ nnoremap <silent> <F11> :NextWordy<cr>
  
 "" Explorer
 nnoremap <leader>k :Explore<CR>
-
-
-"" Ctrl-P behaviour
-"nnoremap <C-p> :CtrlP ~
