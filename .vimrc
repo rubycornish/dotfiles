@@ -4,7 +4,7 @@ execute pathogen#infect()
 
 """ File encoding set to UTF-8
 set encoding=utf-8
-
+set t_Co=256
 
 """ Colours and syntax
 syntax enable               " enable syntax processing
@@ -111,8 +111,8 @@ nnoremap :W :w
  
 """ Backups
  
-set backupdir=~/tmp/backup//
-set directory=~/tmp/swp//
+set backupdir=~/.tmp/backup//
+set directory=~/.tmp/swp//
  
  
 """ Spelling
