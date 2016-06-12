@@ -118,7 +118,7 @@ set directory=~/.tmp/swp//
 """ Spelling
  
 " Toggle spelling with F10
-nnoremap <F10> :setlocal spell! spelllang=en_us<CR>
+nnoremap <F10> :setlocal spell! spelllang=en_uk<CR>
 
 
 "" Cycle through Wordy dictionaries
