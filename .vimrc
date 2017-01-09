@@ -50,9 +50,6 @@ let mapleader=" "       " makes space the leader key
 set ai                  " set autoindent
 set scrolloff=3         " Minimum lines to keep above and below cursor
 
-" make jj act as Esc
-inoremap jj <Esc>
-
 
 """ Statusline
 
@@ -67,7 +64,6 @@ set statusline+=%L        " Total lines
  
 nnoremap <leader>b  :pwd \| echo ' ' \| buffers   \| echo ' '<cr>:b
 nnoremap <leader>t  :pwd             \| tabs      \| echo ' '<cr>:tab
-nnoremap <leader>T  :pwd \| echo ' ' \| tags      \| echo ' '<cr>:tag
 nnoremap <leader>'  :pwd \| echo ' ' \| marks     \| echo ' '<cr>
 nnoremap <leader>"  :       echo ' ' \| registers \| echo ' '<cr>
 
@@ -85,10 +81,6 @@ set hlsearch            " highlight matches
 
 " turn off search highlight by using leader and <space>
 nnoremap <leader><space> :nohlsearch<CR>
- 
- 
-""" Folding
-setlocal foldmethod=marker  " enables folding by setting the triple curly bracket marker
  
  
 """ Movement
@@ -121,9 +113,22 @@ set directory=~/.tmp/swp//
 nnoremap <F10> :setlocal spell! spelllang=en_uk<CR>
 
 
-"" Cycle through Wordy dictionaries
-nnoremap <silent> <F11> :NextWordy<cr>
- 
- 
-"" Explorer
+""" Insert date
+:nnoremap <F5> "=strftime("%Y-%m-%d ")<CR>P
+:inoremap <F5> <C-R>=strftime("%Y-%m-%d ")<CR>
+
+
+""" Mark task as done by prepending x and date then sorting the file
+:nnoremap <F6> Ix<Space><C-R>=strftime("%Y-%m-%d ")<CR><ESC>:sort<CR>
+
+
+""" Explorer
 nnoremap <leader>k :Explore<CR>
+
+
+""" Make md files be treated as markdown 
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+
+
+""" Remove the gutter column from pandoc-markdown
+let g:pandoc#folding#fdc = 0
