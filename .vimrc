@@ -1,5 +1,14 @@
 """ Package loader
 execute pathogen#infect()
+
+
+""" List of packages for git
+"https://github.com/altercation/vim-colors-solarized
+"https://github.com/tpope/vim-fireplace
+"https://github.com/vim-pandoc/vim-pandoc
+"https://github.com/vim-pandoc/vim-pandoc-syntax
+"https://github.com/JamshedVesuna/vim-markdown-preview
+"https://github.com/wlangstroth/vim-racket
  
 
 """ File encoding set to UTF-8
