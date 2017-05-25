@@ -15,8 +15,8 @@ execute pathogen#infect()
 set encoding=utf-8
 set t_Co=256
 
-""" Colours and syntax
-syntax enable               " enable syntax processing
+
+""" Theme
 set background=light        " make background light
 colorscheme solarized       " set colour scheme
 let g:solarized_contrast="high"      "default value is normal 
@@ -24,16 +24,33 @@ let g:solarized_visibility="high"    "default value is normal
 "colorscheme desert
 "set guifont=Consolas:h10:cANSI
 set guioptions-=T           " switch off the toolbar icons
-au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown " add markdown syntax highlighting to .md files
- 
- 
+
+
 """ Tab options
-set tabstop=4       " number of visual spaces per TAB
-set softtabstop=4   " number of spaces in tab when editing
+set tabstop=2       " number of visual spaces per TAB
+set softtabstop=2   " number of spaces in tab when editing
 set expandtab       " tabs are spaces
- 
+set shiftwidth=2    " makes >> indent 2 spaces
+
+
 """ UI Changes
  
+
+syntax enable           " enable syntax processing
+set showcmd             " show command in bottom bar
+set hidden              " allows to switch buffers without saving
+set cursorline          " highlight current line
+set lazyredraw          " redraw only when we need to.
+filetype indent on      " load filetype-specific indent files
+set showmatch           " highlight matching [{()}]
+set backspace=2         " makes backspace delete over indent, eol and start of insert session
+let mapleader=" "       " makes space the leader key
+set ai                  " set autoindent
+set scrolloff=3         " Minimum lines to keep above and below cursor
+set nrformats=          " treat all numbers as decimal, this stops numbers with leading 0s be treated as octal
+"set clipboard=unnamed       " makes copy/paste work as expected on Mac
+au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown " add markdown syntax highlighting to .md files
+
 " this function toggles relative numbers
 function! NumberToggle()
   if(&relativenumber == 1)
@@ -46,19 +63,6 @@ endfunc
 " map CTRL-N to toggle relative numbers
 nnoremap <C-n> :call NumberToggle()<cr>
 
-set showcmd             " show command in bottom bar
-set hidden              " allows to switch buffers without saving
-set cursorline          " highlight current line
-set wildmenu            " visual autocomplete for command menu set wildmode=longest:full,full "makes the completion menu show up on first tab with the longest completion first, the second tab will complete with that longest term
-set wildcharm=<C-y>     " this sets the wildcharm as Ctrl y
-set lazyredraw          " redraw only when we need to.
-filetype indent on      " load filetype-specific indent files
-set showmatch           " highlight matching [{()}]
-set backspace=2         " makes backspace delete over indent, eol and start of insert session
-let mapleader=" "       " makes space the leader key
-set ai                  " set autoindent
-set scrolloff=3         " Minimum lines to keep above and below cursor
-
 
 """ Statusline
 
@@ -69,18 +73,15 @@ set statusline+=%l        " Current line
 set statusline+=/         " Separator
 set statusline+=%L        " Total lines
  
-""" Buffers
+ 
+""" Buffers and such
  
 nnoremap <leader>b  :pwd \| echo ' ' \| buffers   \| echo ' '<cr>:b
 nnoremap <leader>t  :pwd             \| tabs      \| echo ' '<cr>:tab
 nnoremap <leader>'  :pwd \| echo ' ' \| marks     \| echo ' '<cr>
 nnoremap <leader>"  :       echo ' ' \| registers \| echo ' '<cr>
 
-""" Numbers
- 
-set nrformats=          " treat all numbers as decimal, this stops numbers with leading 0s be treated as octal
- 
- 
+
 """ Search options
  
 set ignorecase          " ignores case except for smartcase
@@ -92,7 +93,7 @@ set hlsearch            " highlight matches
 nnoremap <leader><space> :nohlsearch<CR>
  
  
-""" Movement
+""" Key bindings
  
 " move vertically by visual line
 nnoremap j gj
@@ -103,11 +104,10 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+
+inoremap jj <Esc>   "make jj act as esc when editing
  
-""" Shortcuts
- 
-" make capital w save as well
-nnoremap :W :w
+nnoremap :W :w      " make capital w save as well
  
  
 """ Backups
@@ -131,13 +131,13 @@ nnoremap <F10> :setlocal spell! spelllang=en_uk<CR>
 :nnoremap <F6> Ix<Space><C-R>=strftime("%Y-%m-%d ")<CR><ESC>:sort<CR>
 
 
-""" Explorer
-nnoremap <leader>k :Explore<CR>
-
-
-""" Make md files be treated as markdown 
-autocmd BufNewFile,BufRead *.md set filetype=markdown
+""" Explorer or NerdTree
+"nnoremap <leader>k :Explore<CR>
+nnoremap <leader>k :NERDTreeToggle<CR>
 
 
 """ Remove the gutter column from pandoc-markdown
 let g:pandoc#folding#fdc = 0
+
+""" Set CtrlP default mode to MRU
+let g:ctrlp_cmd = 'CtrlPMRU'   
