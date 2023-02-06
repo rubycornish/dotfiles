@@ -2,9 +2,6 @@
 
 call plug#begin()
 
-" gcc comments out code
-Plug 'tpope/vim-commentary'
-
 " Vim Git plugin
 Plug 'tpope/vim-fugitive'
 
@@ -17,34 +14,30 @@ Plug 'dense-analysis/ale'
 " Black Python code formatting
 Plug 'psf/black', { 'branch': 'stable' }
 
-" CTags management
-Plug 'ludovicchabant/vim-gutentags'
+" Markdown
+Plug 'preservim/vim-markdown'
 
-" File manager
-Plug 'preservim/nerdtree'
+" Fuzzy file search
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
 
 call plug#end()
 
-""" File encoding set to UTF-8
-set encoding=utf-8
-"set t_Co=256
+
+""" Not sure if this is needed still?
+filetype plugin on
+
 
 """ Colours and syntax
 syntax enable               " enable syntax processing
-" set background=light        " make background light
-" colorscheme solarized       " set colour scheme
-" let g:solarized_contrast="high"      "default value is normal
-" let g:solarized_visibility="high"    "default value is normal
-" colorscheme desert
-" set guifont=Consolas:h10:cANSI
-set guioptions-=T           " switch off the toolbar icons
-au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown " add markdown syntax highlighting to .md files
+
 
 """ Tab options
 set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in tab when editing
 set expandtab       " tabs are spaces
 set shiftwidth=4    " makes >> indent 4 spaces
+
 
 """ UI Changes
 
@@ -62,9 +55,6 @@ nnoremap <C-m> :call NumberToggle()<cr>
 
 set showcmd             " show command in bottom bar
 set hidden              " allows to switch buffers without saving
-"set cursorline          " highlight current line
-"highlight CursorLine ctermfg=Black ctermbg=Yellow cterm=bold guifg=white guibg=yellow gui=bold
-" set lazyredraw          " redraw only when we need to.
 set showmatch           " highlight matching [{()}]
 set backspace=2         " makes backspace delete over indent, eol and start of insert session
 let mapleader=" "       " makes space the leader key
@@ -72,6 +62,10 @@ let maplocalleader='\'  " makes backslash local leader
 set ai                  " set autoindent
 set scrolloff=3         " Minimum lines to keep above and below cursor
 autocmd InsertLeave * update    "  Write the buffer automatically on leaving insert mode.
+
+" enable autocompletion of vim commands
+set wildmenu
+set wildmode=longest:full,full
 
 " make jj act as Esc
 inoremap jj <Esc>
@@ -114,16 +108,17 @@ nnoremap <leader><space> :nohlsearch<CR>
 nnoremap j gj
 nnoremap k gk
 
-" move between windows using control and normal movement keys
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
 
 """ Shortcuts
 
 " make capital w save as well
 nnoremap :W :w
+
+" Move list element up and down
+nnoremap <A-j> :m .+1<CR>
+nnoremap <A-k> :m .-2<CR>
+vnoremap <A-j> :m '>+1<CR>gv
+vnoremap <A-k> :m '<-2<CR>gv
 
 
 """ Backups
@@ -134,29 +129,33 @@ set directory=~/.tmp/swp//
 
 """ Sessions
 
-set ssop-=options    " do not store global and local values in a session
-set ssop-=folds      " do not store folds
-set nofoldenable     " do not open document folded
+"set ssop-=options    " do not store global and local values in a session
+
+""" Folds
+"set ssop-=folds      " do not store folds
+"set nofoldenable     " do not open document folded
 
 
 """ Spelling
-
 " Toggle spelling with F10
 nnoremap <F10> :setlocal spell! spelllang=en_gb<CR>
 
 
-"" Insert date
-" nnoremap <F5> "=strftime("%Y-%m-%d ")<CR>P
-" inoremap <F5> <C-R>=strftime("%Y-%m-%d ")<CR>
+""" Insert date
+nnoremap <F5> "=strftime("%Y-%m-%d ")<CR>P
+inoremap <F5> <C-R>=strftime("%Y-%m-%d ")<CR>
 
-"" NerdTre
-nnoremap <C-n> :NERDTree<CR>
 
-"" Run Python script
-nnoremap <F5> :w<CR>:!pipenv run python %<CR>
+""" Run Python script
+" nnoremap <F5> :w<CR>:!pipenv run python %<CR>
 
-"" Ale config
+""" Ale config
 "let g:ale_linters = {'python': ['flake8', 'pydocstle', 'mypy']}
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace'], 'python': ['black', 'isort']}
 let g:ale_fix_on_save = 1
 let g:ale_exclude_highlights = ['line too long']
+
+""" File explorer
+nnoremap <C-n> :Lexplore<CR>
+let g:netrw_winsize = 30
+"let g:netrw_banner = 0
